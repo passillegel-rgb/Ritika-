@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Your Personal Fashion Shopper — Mumbai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF6EF;
+    --plum:#3B2334;
+    --rose:#A94464;
+    --rose-dark:#8C3552;
+    --taupe:#E4D8CD;
+    --charcoal:#2E2620;
+    --muted:#7A6E64;
+    --error:#B23A3A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--charcoal);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:600px;margin:0 auto;}
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.7rem;
+    color:var(--plum);
+    text-align:center;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.95rem;
+    margin:0 0 28px;
+  }
+  .rule{
+    border:none;
+    border-top:1px solid var(--taupe);
+    margin:36px 0 28px;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.15rem;
+    color:var(--plum);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .field{margin-bottom:22px;}
+  .field label.q{
+    display:block;
+    font-weight:600;
+    font-size:0.92rem;
+    color:var(--charcoal);
+    margin-bottom:8px;
+  }
+  .field .hint{
+    font-size:0.8rem;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  .req{color:var(--rose);}
+  input[type=text], input[type=email], input[type=tel], input[type=number], input[type=date], textarea, select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--taupe);
+    border-radius:6px;
+    background:#fff;
+    font-family:'Work Sans', sans-serif;
+    font-size:0.95rem;
+    color:var(--charcoal);
+  }
+  textarea{resize:vertical;min-height:80px;}
+  .name-row{display:flex;gap:10px;}
+  .name-row div{flex:1;}
+  .options label{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    padding:8px 0;
+    font-size:0.93rem;
+    cursor:pointer;
+  }
+  .options input{margin-top:3px;}
+  input[type=file]{
+    width:100%;
+    padding:10px;
+    border:1px dashed var(--taupe);
+    border-radius:6px;
+    background:#fff;
+    font-size:0.85rem;
+  }
+  .price{color:var(--rose-dark);font-weight:600;}
+  button[type=submit]{
+    display:block;
+    width:100%;
+    padding:15px;
+    margin-top:12px;
+    background:var(--rose);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:background 0.15s ease;
+  }
+  button[type=submit]:hover{background:var(--rose-dark);}
+  button[type=submit]:disabled{background:var(--muted);cursor:wait;}
+  #status{
+    text-align:center;
+    margin-top:16px;
+    font-size:0.9rem;
+    min-height:20px;
+  }
+  #status.ok{color:#3D7A4E;}
+  #status.err{color:var(--error);}
+  .note{
+    font-size:0.85rem;
+    color:var(--muted);
+    text-align:center;
+    margin:6px 0 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Book Your Personal Fashion Shopper — Mumbai</h1>
+  <p class="subtitle">Share your needs, preferences, and shopping area — then we'll match you with a suitable personal fashion consultant.</p>
+
+  <form id="bookingForm">
+
+    <!-- CUSTOMER DETAILS -->
+    <div class="field">
+      <label class="q">Full Name <span class="req">*</span></label>
+      <div class="name-row">
+        <div><input type="text" name="First Name" placeholder="First Name" required></div>
+        <div><input type="text" name="Last Name" placeholder="Last Name" required></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">WhatsApp Number <span class="req">*</span></label>
+      <input type="tel" name="WhatsApp Number" placeholder="(000) 000-0000" required>
+    </div>
+
+    <div class="field">
+      <label class="q">Email Address <span class="req">*</span></label>
+      <input type="email" name="Email" placeholder="example@example.com" required>
+    </div>
+
+    <div class="field">
+      <label class="q">Age <span class="req">*</span></label>
+      <input type="number" name="Age" placeholder="e.g., 23" min="10" max="100" required>
+    </div>
+
+    <div class="field">
+      <label class="q">Gender <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Gender" value="Male" required> Male</label>
+        <label><input type="radio" name="Gender" value="Female"> Female</label>
+        <label><input type="radio" name="Gender" value="Prefer not to say"> Prefer not to say</label>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h2>What are you shopping for?</h2>
+    <div class="field">
+      <div class="options" id="shoppingFor">
+        <label><input type="checkbox" value="College"> College</label>
+        <label><input type="checkbox" value="Office/Work"> Office / Work</label>
+        <label><input type="checkbox" value="Date Night"> Date Night</label>
+        <label><input type="checkbox" value="Wedding"> Wedding</label>
+        <label><input type="checkbox" value="Party"> Party</label>
+        <label><input type="checkbox" value="Vacation/Travel"> Vacation / Travel</label>
+        <label><input type="checkbox" value="Casual Wardrobe"> Casual Wardrobe</label>
+        <label><input type="checkbox" value="Complete Wardrobe Refresh"> Complete Wardrobe Refresh</label>
+        <label><input type="checkbox" value="Festival/Traditional"> Festival / Traditional</label>
+        <label><input type="checkbox" value="Interview"> Interview</label>
+        <label><input type="checkbox" value="Birthday/Special Occasion"> Birthday / Special Occasion</label>
+        <label><input type="checkbox" value="Other"> Other</label>
+      </div>
+      <input type="text" name="Shopping For Other" placeholder="Please specify (if Other)" style="margin-top:8px;">
+    </div>
+
+    <hr class="rule">
+    <h2>Personal Style</h2>
+
+    <div class="field">
+      <label class="q">How would you describe your current style? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Current Style" value="Minimal" required> Minimal</label>
+        <label><input type="radio" name="Current Style" value="Casual"> Casual</label>
+        <label><input type="radio" name="Current Style" value="Streetwear"> Streetwear</label>
+        <label><input type="radio" name="Current Style" value="Smart Casual"> Smart Casual</label>
+        <label><input type="radio" name="Current Style" value="Formal"> Formal</label>
+        <label><input type="radio" name="Current Style" value="Luxury"> Luxury</label>
+        <label><input type="radio" name="Current Style" value="Trendy"> Trendy</label>
+        <label><input type="radio" name="Current Style" value="Traditional/Ethnic"> Traditional / Ethnic</label>
+        <label><input type="radio" name="Current Style" value="Sporty"> Sporty</label>
+        <label><input type="radio" name="Current Style" value="I don't know my style yet"> I don't know my style yet</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">How important are trends to you? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Trends Importance" value="Very important" required> Very important</label>
+        <label><input type="radio" name="Trends Importance" value="Somewhat important"> Somewhat important</label>
+        <label><input type="radio" name="Trends Importance" value="I prefer timeless clothing"> I prefer timeless clothing</label>
+        <label><input type="radio" name="Trends Importance" value="I don't know"> I don't know</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Which colours do you usually like?</label>
+      <div class="options" id="colorsLike">
+        <label><input type="checkbox" value="Navy"> Navy</label>
+        <label><input type="checkbox" value="Blue"> Blue</label>
+        <label><input type="checkbox" value="Green"> Green</label>
+        <label><input type="checkbox" value="Red"> Red</label>
+        <label><input type="checkbox" value="Pink"> Pink</label>
+        <label><input type="checkbox" value="Purple"> Purple</label>
+        <label><input type="checkbox" value="Yellow"> Yellow</label>
+        <label><input type="checkbox" value="Orange"> Orange</label>
+        <label><input type="checkbox" value="Brown"> Brown</label>
+        <label><input type="checkbox" value="Beige"> Beige</label>
+        <label><input type="checkbox" value="Cream"> Cream</label>
+        <label><input type="checkbox" value="Pastel shades"> Pastel shades</label>
+        <label><input type="checkbox" value="Earth tones"> Earth tones</label>
+        <label><input type="checkbox" value="Metallics"> Metallics</label>
+        <label><input type="checkbox" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Which colours do you usually avoid?</label>
+      <input type="text" name="Colors Avoid" placeholder="e.g., Black, Neon">
+    </div>
+
+    <div class="field">
+      <label class="q">How would you describe your preferred fit? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Preferred Fit" value="Slim" required> Slim</label>
+        <label><input type="radio" name="Preferred Fit" value="Regular"> Regular</label>
+        <label><input type="radio" name="Preferred Fit" value="Relaxed"> Relaxed</label>
+        <label><input type="radio" name="Preferred Fit" value="Oversized"> Oversized</label>
+        <label><input type="radio" name="Preferred Fit" value="I don't know"> I don't know</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">What is your approximate height? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Height" value="Under 5'0\"" required> Under 5'0"</label>
+        <label><input type="radio" name="Height" value="5'0\"-5'4\""> 5'0"–5'4"</label>
+        <label><input type="radio" name="Height" value="5'5\"-5'8\""> 5'5"–5'8"</label>
+        <label><input type="radio" name="Height" value="5'9\"-6'0\""> 5'9"–6'0"</label>
+        <label><input type="radio" name="Height" value="6'1\"+"> 6'1"+</label>
+        <label><input type="radio" name="Height" value="Prefer not to say"> Prefer not to say</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Is there anything about fit that you particularly struggle with?</label>
+      <div class="options" id="fitStruggle">
+        <label><input type="checkbox" value="Finding correct shirt size"> Finding correct shirt size</label>
+        <label><input type="checkbox" value="Trouser length"> Trouser length</label>
+        <label><input type="checkbox" value="Shoulder fit"> Shoulder fit</label>
+        <label><input type="checkbox" value="Waist fit"> Waist fit</label>
+        <label><input type="checkbox" value="Oversized clothing"> Oversized clothing</label>
+        <label><input type="checkbox" value="Body proportions"> Body proportions</label>
+        <label><input type="checkbox" value="I don't know what suits my body"> I don't know what suits my body</label>
+        <label><input type="checkbox" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h2>Existing Wardrobe</h2>
+
+    <div class="field">
+      <label class="q">What do you already own?</label>
+      <div class="options" id="wardrobeOwn">
+        <label><input type="checkbox" value="T-shirts"> T-shirts</label>
+        <label><input type="checkbox" value="Shirts"> Shirts</label>
+        <label><input type="checkbox" value="Jeans"> Jeans</label>
+        <label><input type="checkbox" value="Trousers"> Trousers</label>
+        <label><input type="checkbox" value="Jackets"> Jackets</label>
+        <label><input type="checkbox" value="Blazers"> Blazers</label>
+        <label><input type="checkbox" value="Kurtas"> Kurtas</label>
+        <label><input type="checkbox" value="Dresses"> Dresses</label>
+        <label><input type="checkbox" value="Sneakers"> Sneakers</label>
+        <label><input type="checkbox" value="Formal shoes"> Formal shoes</label>
+        <label><input type="checkbox" value="Accessories"> Accessories</label>
+        <label><input type="checkbox" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Upload 1–5 photos of your existing wardrobe (optional)</label>
+      <input type="file" id="wardrobePhotos" accept="image/*" multiple>
+      <p class="hint">Photos upload directly to your Google Drive folder.</p>
+    </div>
+
+    <hr class="rule">
+    <h2>Mumbai Shopping Location</h2>
+
+    <div class="field">
+      <label class="q">Where would you like to shop? <span class="req">*</span></label>
+      <select name="Shop Location" required>
+        <option value="">Please Select</option>
+        <option>Bandra</option>
+        <option>Colaba</option>
+        <option>Linking Road</option>
+        <option>Phoenix Palladium (Lower Parel)</option>
+        <option>High Street Phoenix</option>
+        <option>Infiniti Mall</option>
+        <option>Juhu</option>
+        <option>Andheri</option>
+        <option>South Mumbai (SoBo)</option>
+        <option>No preference</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="q">Which area are you located in?</label>
+      <input type="text" name="Located Area" placeholder="Your area">
+    </div>
+
+    <div class="field">
+      <label class="q">Where would you prefer to meet your Personal Shopper? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Meet Location" value="At the mall" required> At the mall</label>
+        <label><input type="radio" name="Meet Location" value="At the shopping street/market"> At the shopping street/market</label>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h2>Date &amp; Time</h2>
+
+    <div class="field">
+      <label class="q">Preferred shopping date <span class="req">*</span></label>
+      <input type="date" name="Shopping Date" required>
+    </div>
+
+    <div class="field">
+      <label class="q">Preferred time <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Preferred Time" value="9 AM-12 PM" required> 9 AM–12 PM</label>
+        <label><input type="radio" name="Preferred Time" value="12 PM-3 PM"> 12 PM–3 PM</label>
+        <label><input type="radio" name="Preferred Time" value="3 PM-6 PM"> 3 PM–6 PM</label>
+        <label><input type="radio" name="Preferred Time" value="6 PM-9 PM"> 6 PM–9 PM</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">Preferred duration <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Duration" value="2 hours" required> 2 hours</label>
+        <label><input type="radio" name="Duration" value="3 hours"> 3 hours</label>
+        <label><input type="radio" name="Duration" value="4 hours"> 4 hours</label>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h2>Consultant Preference</h2>
+
+    <div class="field">
+      <label class="q">Do you have any preference for your Personal Shopper? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Shopper Gender Pref" value="Male" required> Male</label>
+        <label><input type="radio" name="Shopper Gender Pref" value="Female"> Female</label>
+        <label><input type="radio" name="Shopper Gender Pref" value="No preference"> No preference</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">What type of fashion expertise would you prefer? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Expertise" value="Men's Fashion" required> Men's Fashion</label>
+        <label><input type="radio" name="Expertise" value="Women's Fashion"> Women's Fashion</label>
+        <label><input type="radio" name="Expertise" value="Streetwear"> Streetwear</label>
+        <label><input type="radio" name="Expertise" value="Casual"> Casual</label>
+        <label><input type="radio" name="Expertise" value="Formal/Corporate"> Formal / Corporate</label>
+        <label><input type="radio" name="Expertise" value="Ethnic/Traditional"> Ethnic / Traditional</label>
+        <label><input type="radio" name="Expertise" value="Luxury/Premium"> Luxury / Premium</label>
+        <label><input type="radio" name="Expertise" value="No preference"> No preference</label>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <h2>Additional Information</h2>
+
+    <div class="field">
+      <label class="q">Is there anything else your Personal Shopper should know?</label>
+      <textarea name="Additional Notes"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="q">Upload an inspiration photo</label>
+      <input type="file" id="inspirationPhoto" accept="image/*">
+    </div>
+
+    <div class="field">
+      <label class="q">Upload a recent photo of yourself</label>
+      <input type="file" id="selfPhoto" accept="image/*">
+    </div>
+
+    <hr class="rule">
+    <h2>Booking Terms</h2>
+
+    <div class="field">
+      <label style="display:flex;gap:9px;font-size:0.9rem;">
+        <input type="checkbox" name="Ack Fee Separate" value="Acknowledged" required style="margin-top:3px;">
+        I understand that the Personal Shopper consultation fee is separate from my clothing/shopping bill. <span class="req">*</span>
+      </label>
+    </div>
+    <div class="field">
+      <label style="display:flex;gap:9px;font-size:0.9rem;">
+        <input type="checkbox" name="Ack Availability" value="Acknowledged" required style="margin-top:3px;">
+        I understand that my preferred date/time is subject to consultant availability. <span class="req">*</span>
+      </label>
+    </div>
+
+    <hr class="rule">
+    <h2>Book Your Personal Shopper</h2>
+
+    <div class="field">
+      <label class="q">Select a package <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Package" value="College Makeover - Rs.999" required> College Makeover — <span class="price">₹999</span></label>
+        <label><input type="radio" name="Package" value="Personal Shopping - Rs.1499"> Personal Shopping — <span class="price">₹1,499</span></label>
+        <label><input type="radio" name="Package" value="Wardrobe Refresh - Rs.1999"> Wardrobe Refresh — <span class="price">₹1,999</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="q">How would you like to pay? <span class="req">*</span></label>
+      <div class="options">
+        <label><input type="radio" name="Payment Method" value="Pay now via UPI" required> Pay now via UPI</label>
+        <label><input type="radio" name="Payment Method" value="Pay now via online payment"> Pay now via online payment (card/other)</label>
+        <label><input type="radio" name="Payment Method" value="Pay later at consultation"> Pay later / at the time of consultation</label>
+      </div>
+      <p class="hint">No payment needed now. You will pay the consultation fee directly to your Personal Shopper at the time of the session.</p>
+    </div>
+
+    <div class="field">
+      <label style="display:flex;gap:9px;font-size:0.9rem;">
+        <input type="checkbox" name="Agree Terms" value="I Agree" required style="margin-top:3px;">
+        I agree to the service terms and cancellation policy. <span class="req">*</span>
+      </label>
+    </div>
+
+    <button type="submit" id="submitBtn">Book Now</button>
+    <p id="status"></p>
+  </form>
+</div>
+
+<script>
+// ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see setup instructions)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwgPS5O72Z_3WMUgK4QroWoDBbvRb30NTqDI3RmMAWRIsWFjK7Avfy7MJCB4oWya8G/exec";
+
+function collectCheckboxGroup(containerId){
+  const boxes = document.querySelectorAll('#' + containerId + ' input[type=checkbox]:checked');
+  return Array.from(boxes).map(b => b.value).join(', ');
+}
+
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    if(!file){ resolve(null); return; }
+    const reader = new FileReader();
+    reader.onload = () => resolve({name:file.name, data:reader.result.split(',')[1], type:file.type});
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function filesToBase64Array(fileList){
+  const arr = [];
+  for(const f of fileList){
+    arr.push(await fileToBase64(f));
+  }
+  return arr;
+}
+
+document.getElementById('bookingForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('status');
+  status.textContent = '';
+  status.className = '';
+
+  if(SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
+    status.textContent = 'Setup incomplete: paste your Google Apps Script Web App URL in the code first.';
+    status.className = 'err';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const form = e.target;
+  const data = {};
+
+  // simple named text/radio/select fields
+  new FormData(form).forEach((value, key) => {
+    if(data[key]) return; // avoid overwriting from grouped names already handled
+    data[key] = value;
+  });
+
+  // checkbox groups
+  data['Shopping For'] = collectCheckboxGroup('shoppingFor');
+  data['Colors Like'] = collectCheckboxGroup('colorsLike');
+  data['Fit Struggles'] = collectCheckboxGroup('fitStruggle');
+  data['Wardrobe Own'] = collectCheckboxGroup('wardrobeOwn');
+
+  // files (best effort — large files may be slow over base64)
+  try{
+    const wardrobeFiles = document.getElementById('wardrobePhotos').files;
+    const inspirationFile = document.getElementById('inspirationPhoto').files[0];
+    const selfFile = document.getElementById('selfPhoto').files[0];
+
+    data['wardrobePhotos'] = await filesToBase64Array(wardrobeFiles);
+    data['inspirationPhoto'] = await fileToBase64(inspirationFile);
+    data['selfPhoto'] = await fileToBase64(selfFile);
+  }catch(err){
+    console.error('File read error', err);
+  }
+
+  try{
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    });
+    status.textContent = 'Thank you! Your booking has been received. We will contact you on WhatsApp shortly.';
+    status.className = 'ok';
+    form.reset();
+  }catch(err){
+    console.error(err);
+    status.textContent = 'Something went wrong. Please check your internet connection and try again.';
+    status.className = 'err';
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Book Now';
+  }
+});
+</script>
+</body>
+</html>
